@@ -64,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SearchAppBar() {
+export default function Header(props) {
+    
     const classes = useStyles();
 
     const [values, setValues] = React.useState({
@@ -84,6 +85,11 @@ export default function SearchAppBar() {
         [event.target.name]: event.target.value,
         }));
     };
+
+    const getUserData = (e)=>{
+        console.log('From Child'+e.target.value);
+        props.sendData(e.target.value);
+    }
 
     return (
         <div className={classes.root}>
@@ -130,6 +136,7 @@ export default function SearchAppBar() {
                             input: classes.inputInput,
                         }}
                         inputProps={{ 'aria-label': 'search' }}
+                        onChange={getUserData}
                         />
                     </div>
                 </Toolbar>
