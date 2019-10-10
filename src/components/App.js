@@ -1,43 +1,89 @@
-import React, { Component } from 'react';
-
-import {BrowserRouter} from 'react-router-dom';
+import React, {Component} from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 // Components
-import Header from './components/header';
-import Profile from './components/profile';
-
+import Header from './header';
+import Profile from './profile';
 import axios from 'axios';
 
 class App extends Component{
-    getData = async (val)=>{    
+    constructor(props){
+        super(props)
+        axios.get('https://api.github.com/users?since=0')
+        .then((result)=>{
+            this.setState({
+                data: result.data,
+                dataLength: result.data.length
+            })
+        }).catch((err)=>{
+            this.setState({
+                data: [],
+                dataLength: 0
+            })
+        })        
+    }
+
+    state = {
+        data: [],
+        dataLength: 0
+    }
+
+
+    getData = (val)=>{
         let data;
-        let responseData = 0
         if (val!==undefined){
-            let res = await axios.get('https://api.github.com/search/users?q='+val)
-            if (res.data.length>0){
-                data = res.data;
-            }else{
-                data = responseData;
-            }
+            axios.get('https://api.github.com/search/users?q='+val)
+            .then((result)=>{
+                if (result.data.items.length>0){
+                    this.setState({
+                        data: result.data.items,
+                        dataLength: result.data.items.length
+                    })
+                }else{
+                    this.setState({
+                        data: [],
+                        dataLength: 0
+                    })
+                }
+            }).catch((err)=>{
+                this.setState({
+                    data: [],
+                    dataLength: 0
+                })
+            })
         } else {
-            let res = await axios.get('https://api.github.com/users?since=0')
-            if (res.data.length>0){
-                data = res.data;
-            }else{
-                data = responseData;
-            }
+            axios.get('https://api.github.com/users?since=0')
+            .then((result)=>{
+                if (result.data.length>0){
+                data = result.data;
+                this.setState({
+                    data: result.data,
+                    dataLength: result.data.length
+                })
+                }else{
+                    this.setState({
+                        data: [],
+                        dataLength: 0
+                    })
+                }
+            }).catch((err)=>{
+                this.setState({
+                    data: [],
+                    dataLength: 0
+                })
+            })
         }
         return data;
     }
-
+    
     render(){
         return (
             <BrowserRouter>
-                <Header sendData={this.getData}/>
-                <Profile sendData={this.getData}></Profile>
+                <Header searchData={this.getData}/>
+                <Profile sendData={this.state.data}/>
             </BrowserRouter>
         )
     }
 }
 
-export default App;
+export default App

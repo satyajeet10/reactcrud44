@@ -65,9 +65,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Header(props) {
-    
     const classes = useStyles();
-
     const [values, setValues] = React.useState({
         age: '',
         name: 'hai',
@@ -86,9 +84,15 @@ export default function Header(props) {
         }));
     };
 
+    // Search Function 
     const getUserData = (e)=>{
-        console.log('From Child'+e.target.value);
-        props.sendData(e.target.value);
+        if (e.target.value){
+            // Based on search value
+            props.searchData(e.target.value)
+        } else {
+            // Based on default value
+            props.searchData()
+        }
     }
 
     return (

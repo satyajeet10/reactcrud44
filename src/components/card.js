@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function AlignItemsList(props) {
     const classes = useStyles();
-
     return (
         <Card className={classes.card} style={{marginBottom:'15px'}}>
             <CardContent style={{padding:'0px', marginBottom:'0px'}}>
