@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './header';
 import Profile from './profile';
 import axios from 'axios';
+import Pagination from './pagination';
 
 class App extends Component{
     constructor(props){
@@ -13,19 +14,29 @@ class App extends Component{
         .then((result)=>{
             this.setState({
                 data: result.data,
-                dataLength: result.data.length
+                dataLength: result.data.length,
+                tableStatus: false
             })
         }).catch((err)=>{
             this.setState({
                 data: [],
-                dataLength: 0
+                dataLength: 0,
+                tableStatus: false
             })
         })        
     }
 
     state = {
         data: [],
-        dataLength: 0
+        dataLength: 0,
+        tableStatus: false
+    }
+
+    displayTable = (flag)=>{
+        this.setState({
+            tableStatus: !flag
+        })
+        return {tableStatus:!flag}
     }
 
 
@@ -37,18 +48,21 @@ class App extends Component{
                 if (result.data.items.length>0){
                     this.setState({
                         data: result.data.items,
-                        dataLength: result.data.items.length
+                        dataLength: result.data.items.length,
+                        tableStatus: false
                     })
                 }else{
                     this.setState({
                         data: [],
-                        dataLength: 0
+                        dataLength: 0,
+                        tableStatus: false
                     })
                 }
             }).catch((err)=>{
                 this.setState({
                     data: [],
-                    dataLength: 0
+                    dataLength: 0,
+                    tableStatus: false
                 })
             })
         } else {
@@ -58,18 +72,21 @@ class App extends Component{
                 data = result.data;
                 this.setState({
                     data: result.data,
-                    dataLength: result.data.length
+                    dataLength: result.data.length,
+                    tableStatus: false
                 })
                 }else{
                     this.setState({
                         data: [],
-                        dataLength: 0
+                        dataLength: 0,
+                        tableStatus: false
                     })
                 }
             }).catch((err)=>{
                 this.setState({
                     data: [],
-                    dataLength: 0
+                    dataLength: 0,
+                    tableStatus: false
                 })
             })
         }
@@ -80,7 +97,7 @@ class App extends Component{
         return (
             <BrowserRouter>
                 <Header searchData={this.getData}/>
-                <Profile sendData={this.state.data}/>
+                <Profile sendData={this.state.data} tableData={this.state.tableStatus} changeTable={this.displayTable}/>
             </BrowserRouter>
         )
     }

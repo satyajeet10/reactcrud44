@@ -36,7 +36,13 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
 export default function AlignItemsList(props) {
+    const toggleTable= (tableFlag)=>{
+        props.changeTable(tableFlag);
+    }
+    
+    console.log(props)
     const classes = useStyles();
     return (
         <Card className={classes.card} style={{marginBottom:'15px'}}>
@@ -61,7 +67,9 @@ export default function AlignItemsList(props) {
                                 <div>
                                     <div style={{display:'inline-block',width:'50%'}}>Data One: Value One<br/>Data Two: Value Two</div>
                                     <div style={{display:'inline-block', width:'50%'}}>
-                                        <Button variant="outlined" color="primary" className={classes.button} style={{float:'right'}}>Details</Button>
+                                        <Button variant="outlined" color="primary" className={classes.button} style={{float:'right'}} onClick={()=>{
+                                            toggleTable(props.tableData);
+                                        }}>Details</Button>
                                     </div>
                                 </div>                                
                             </React.Fragment>
@@ -69,14 +77,16 @@ export default function AlignItemsList(props) {
                         />
                     </ListItem>
                 </List>
-                <Table className={classes.table}>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align="center">{}</TableCell>
-                            <TableCell align="center">{}</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+                {
+                    <Table className={props.res.login} style={props.tableData===false?{display:'none'}:{display:'static'}}>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell align="center">Test1</TableCell>
+                                <TableCell align="center">Test2</TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                }
             </CardContent>
         </Card>
     );

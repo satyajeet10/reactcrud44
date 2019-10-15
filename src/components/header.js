@@ -2,7 +2,7 @@ import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { AppBar, Toolbar, IconButton, InputBase, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
+import { Grid, AppBar, Toolbar, IconButton, InputBase, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -98,8 +98,9 @@ export default function Header(props) {
     return (
         <div className={classes.root}>
             <AppBar position="static" style={{background:'#1876D2'}}>
-                <Toolbar>
-                    <IconButton
+                <Grid container spacing={0}>
+                    <Grid container item xs={1}>
+                <IconButton
                     edge="start"
                     className={classes.menuButton}
                     color="inherit"
@@ -107,6 +108,9 @@ export default function Header(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+                </Grid>
+                <Grid container item xs={7} justify="flex-end">
+                <Toolbar>
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
                         </InputLabel>
@@ -144,6 +148,8 @@ export default function Header(props) {
                         />
                     </div>
                 </Toolbar>
+                </Grid>
+                </Grid>
             </AppBar>
         </div>
     );

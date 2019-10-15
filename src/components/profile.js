@@ -6,6 +6,8 @@ import Pagination from "material-ui-flat-pagination";
 import { Container } from '@material-ui/core';
 
 export default function Profile(props) {
+    console.log(props)
+
     return(
         <Container maxWidth="sm">
             <div>
@@ -13,7 +15,7 @@ export default function Profile(props) {
                 {                           
                     props.sendData.map((res,i)=>{
                         return (
-                            <Card res={res} key={i}/>
+                            <Card res={res} key={i} tableData={props.tableData} changeTable={props.changeTable}/>
                         )
                     })    
                 }
