@@ -6,25 +6,24 @@ import Pagination from "material-ui-flat-pagination";
 import { Container } from '@material-ui/core';
 
 export default function Profile(props) {
-    console.log(props)
-
+    console.log(props);
     return(
         <Container maxWidth="sm">
             <div>
-                <div style={{textAlign:'left',margin:'10px 10px'}}>Total Results: {props.sendData.length}</div>
+                <div style={{textAlign:'left',margin:'10px 10px'}}>Total Results: {props.pageLength}</div>
                 {                           
                     props.sendData.map((res,i)=>{
                         return (
-                            <Card res={res} key={i} tableData={props.tableData} changeTable={props.changeTable}/>
+                            <Card res={res} key={i}/>
                         )
                     })    
                 }
                 <Pagination style={{float:'right'}}
                 limit={3}
-                offset={0}
-                total={10}
+                offset={props.offSetData}
+                total={props.pageLength}
                 onClick={(e, offset) => {
-                    console.log('click');
+                    props.changePageData(offset);
                 }}
                 />
             </div>
