@@ -78,11 +78,11 @@ class App extends Component{
             .then((result)=>{
                 debugger;
                 if (result.data.length>0){
-                    let showData = result.data.slice(0,3);
+                    let showData = result.data.slice(0,3); 
                     this.setState({
-                        allData: result.data.items,
+                        allData: result.data,
                         data: showData,
-                        dataLength: result.data.items.length,
+                        dataLength: result.data.length,
                         offset: 0
                     })
                 }else{
